@@ -1,0 +1,79 @@
+---
+format: docx 
+monofont: "DejaVu Sans Mono"
+mainfont: "Times New Roman"
+execute: 
+  echo: false
+  warning: false
+editor: source
+bibliography: references.bib
+biblio-style: apalike
+natbiboptions: round
+link-citations: true
+linkcolor: blue!000!black
+urlcolor: blue!000!black
+citecolor: blue!000!black
+linestretch: 1.5
+indent: TRUE
+---
+
+```{r}
+#| label: setup
+#| include: false
+options(scipen=999)
+knitr::opts_chunk$set(
+                      fig.pos = "H", 
+                      fig.env= 'figure', 
+                      ft.align = "left",
+                      ft.tabcolsep= 0, 
+                      ft.latex.float = "none",
+                      ft.arraystretch = 0.4
+                      )
+library(tidyverse)
+library(readr)
+library(readxl)
+library(zoo)
+library(magick)
+library(stringi)
+library(patchwork)
+library(xtable)
+library(scales)
+library(rvest)
+library(rebus)
+library(PNWColors)
+library(lubridate)
+library(here)
+library(flextable)
+library(gt)
+library(officer)
+library(officedown)
+library(modelsummary)
+library(sandwich)
+library(lmtest)
+library(stargazer)
+```
+
+```{r}
+#| label: func
+source(here("Functions","flextable_word.R" ))
+source(here("Functions","modelsummary_pdf.R" ))
+source(here("Functions","borderlines.R" ))
+
+set_flextable_defaults(font.size = 7, 
+                       text.align = "left", 
+                       font.color = "black", 
+                       theme_fun = theme_apa, 
+                       padding = 0,
+                       line_spacing = 0)
+```
+
+# Introduction
+
+# Experiences from other countries
+
+# South African experience
+
+# Conclusion
+
+
+# References
