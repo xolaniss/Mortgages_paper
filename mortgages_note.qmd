@@ -69,6 +69,10 @@ set_flextable_defaults(font.size = 7,
 
 # Introduction
 
+@amzallag2019monetary
+
+@oecd2021brick
+
 # Experiences from other countries
 
 # South African experience
