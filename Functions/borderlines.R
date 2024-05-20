@@ -3,7 +3,7 @@ borderlines <- function(table) {
     vline_left(border = fp_border(color = "white"), part = "all") %>%
     vline_right(border = fp_border(color = "white"), part = "all") %>%
     vline(j = c(1, 3, 5),
-          border = border,
+          border = border, # set border upfront
           part = c("body")) %>%
     vline(j = c(1, 3, 5),
           border = border,
