@@ -172,7 +172,7 @@ mortgage_lending_tbl <-
   mutate(`Rate type` = str_replace_all(`Rate type`, " fixed rate", "Fixed rate")) %>% 
   mutate(`Rate type` = str_replace_all(`Rate type`, " flexible rate", "Flexible rate")) %>%
   mutate(Sector = str_replace_all(Sector, "corporate sector", "Corporate sector")) %>%
-  mutate(Sector = str_replace_all(Sector, "household sector", "Household sector"))
+  mutate(Sector = str_replace_all(Sector, "household sector", "Household sector")) 
   
 # Export ---------------------------------------------------------------
 artifacts_BA930_mortgages <- list (
