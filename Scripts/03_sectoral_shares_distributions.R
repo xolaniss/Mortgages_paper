@@ -46,11 +46,12 @@ pivot_function <- function(tbl) {
     )
 }
 
-distribution_gg_function <- function(
+distribution_gg <- function(
     data = data,
     fix_flex_indicator = "Fixed_share",
     year_version = FALSE,
-    title_tag = "household"){
+    title_tag = "household",
+    ylabel = "Log(FRM share)"){
   if(year_version == FALSE) {
   data %>% 
     filter(Series == fix_flex_indicator) %>%
@@ -62,7 +63,7 @@ distribution_gg_function <- function(
     labs(
       title = glue("Distribution of {title_tag} corporate mortgage lending shares (2008-2023)"),
       x = "Count",
-      y = "Log(FRM share)"
+      y = glue("{ylabel}")
     ) +
     coord_flip()
   } else {
@@ -77,10 +78,44 @@ distribution_gg_function <- function(
     labs(
       title = glue("Distribution of {title_tag} mortgage lending shares (2008-2023)"),
       x = "Count",
-      y = "Log(FRM share)"
+      y = glue("{ylabel}")
     ) +
     coord_flip()
   }
+}
+
+density_gg <- function(
+  data = data,
+  fix_flex_indicator = "Fixed_share",
+  title_tag = "household",
+  year_version = FALSE,
+  xlabel = "Log(FRM share)"){
+  if(year_version == FALSE){
+  data %>% 
+    filter(Series == fix_flex_indicator) %>%
+    filter(!Banks == "Total Banks") %>%
+    ggplot(aes(x = log(Value))) +
+    geom_density() +
+    theme_minimal() +
+    labs(
+      title = glue("Density of {title_tag} mortgage lending shares (2008-2023)"),
+      x = glue("{xlabel}"),
+      y = "Density"
+    )
+    } else {
+    data %>% 
+    filter(Series == fix_flex_indicator) %>%
+    filter(!Banks == "Total Banks") %>% 
+    ggplot(aes(x = log(Value))) +
+    geom_density() +
+    facet_wrap(~lubridate::year(Date)) +
+    theme_minimal() +
+    labs(
+      title = glue("Density of {title_tag} mortgage lending shares (2008-2023)"),
+      x = glue("{xlabel}"),
+      y = "Density"
+    )
+    }
 }
 
 # Import -------------------------------------------------------------
@@ -90,30 +125,31 @@ housing_split_tbl <- mortgage_split$household_mortgage_split_tbl %>% pivot_funct
 corporate_split_tbl <- mortgage_split$corporate_mortgage_split_tbl %>% pivot_function()
 
 # Household sector view ---------------------------------------------------
-
 housing_fixed_hist_gg <- 
-  distribution_gg_function(
+  distribution_gg(
   data = housing_split_tbl,
   fix_flex_indicator = "Fixed_share",
   year_version = FALSE,
-  title_tag = "household"
+  title_tag = "household",
+  ylabel = "Log(FRM share)"
 )
 
 housing_fixed_hist_gg
 
 housing_fixed_hist_by_year_gg <- 
-  distribution_gg_function(
+  distribution_gg(
     data = housing_split_tbl,
     fix_flex_indicator = "Fixed_share",
     year_version = TRUE,
-    title_tag = "household"
+    title_tag = "household",
+    ylabel = "Log(FRM share)"
   )
 
 housing_fixed_hist_by_year_gg 
 
 # Corporate sector view ---------------------------------------------------
 corporate_fixed_hist_gg <- 
-  distribution_gg_function(
+  distribution_gg(
     data = corporate_split_tbl,
     fix_flex_indicator = "Fixed_share",
     year_version = FALSE,
@@ -123,22 +159,65 @@ corporate_fixed_hist_gg <-
 corporate_fixed_hist_gg
 
 corporate_fixed_hist_by_year_gg <- 
-  distribution_gg_function(
+  distribution_gg(
     data = corporate_split_tbl,
     fix_flex_indicator = "Fixed_share",
     year_version = TRUE,
-    title_tag = "corporate"
+    title_tag = "corporate",
+    ylabel = "Log(FRM share)"
   )
 
 corporate_fixed_hist_by_year_gg
 
+# Density estimates -------------------------------------------------------
+
+housing_density_gg <- 
+  density_gg(
+    data = housing_split_tbl,
+    fix_flex_indicator = "Fixed_share",
+    title_tag = "household"
+  )
+housing_density_gg
+
+housing_density_year_gg <- 
+  density_gg(
+  data = housing_split_tbl,
+  fix_flex_indicator = "Fixed_share",
+  title_tag = "household",
+  year_version = TRUE
+)
+housing_density_year_gg
+
+corporate_density_gg <- 
+  corporate_split_tbl %>% 
+  density_gg(
+    fix_flex_indicator = "Fixed_share",
+    title_tag = "corporate"
+  )
+corporate_density_gg
+
+corporate_density_year_gg <-
+  density_gg(
+    data = corporate_split_tbl,
+    fix_flex_indicator = "Fixed_share",
+    title_tag = "corporate",
+    year_version = TRUE
+  )
+corporate_density_year_gg
+
 # Export ---------------------------------------------------------------
 artifacts_distributions <- list (
-  gg = list(
+  histograms = list(
     housing_fixed_hist_gg = housing_fixed_hist_gg,
     housing_fixed_hist_by_year_gg = housing_fixed_hist_by_year_gg,
     corporate_fixed_hist_gg = corporate_fixed_hist_gg,
     corporate_fixed_hist_by_year_gg = corporate_fixed_hist_by_year_gg
+  ),
+  densities = list(
+    housing_density_gg = housing_density_gg,
+    housing_density_year_gg = housing_density_year_gg,
+    corporate_density_gg = corporate_density_gg,
+    corporate_density_year_gg = corporate_density_year_gg
   )
 )
 
