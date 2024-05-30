@@ -39,6 +39,8 @@ options(scipen = 999)
 
 # Functions ---------------------------------------------------------------
 source(here("Functions", "fx_plot.R"))
+source(here("Functions", "density_gg.R"))
+source(here("Functions", "distribution_gg.R"))
 pivot_function <- function(tbl) {
   tbl %>% 
     pivot_longer(
@@ -46,123 +48,6 @@ pivot_function <- function(tbl) {
       names_to = "Series",
       values_to = "Value"
     )
-}
-
-distribution_gg <- function(
-    data = data,
-    fix_flex_indicator = "Fixed_share",
-    year_version = FALSE,
-    title_tag = "household",
-    ylabel = "Log(FRM share)"){
-  if(year_version == FALSE) {
-  data %>% 
-    filter(Series == fix_flex_indicator) %>%
-    filter(!Banks == "Total Banks") %>% 
-    ggplot(aes(y = log(Value), fill = Banks)) +
-    geom_histogram(binwidth =  0.1) +
-    theme_minimal() +
-    theme(legend.position = "bottom") +
-    labs(
-      title = glue("Distribution of {title_tag} corporate mortgage lending shares (2008-2023)"),
-      x = "Count",
-      y = glue("{ylabel}")
-    ) +
-    coord_flip()
-  } else {
-    data %>% 
-    filter(Series == fix_flex_indicator) %>%
-    filter(!Banks == "Total Banks") %>% 
-    ggplot(aes(y = log(Value), fill = Banks)) +
-    geom_histogram(binwidth =  0.1) +
-    theme_minimal() +
-    facet_wrap(~lubridate::year(Date)) +
-    theme(legend.position = "bottom") +
-    labs(
-      title = glue("Distribution of {title_tag} mortgage lending shares (2008-2023)"),
-      x = "Count",
-      y = glue("{ylabel}")
-    ) +
-    coord_flip()
-  }
-}
-
-density_gg <- function(
-  data = data,
-  fix_flex_indicator = "Fixed_share",
-  title_tag = "household",
-  year_version = FALSE,
-  xlabel = "Log(FRM share)"){
-  gg_one <- 
-  if(year_version == FALSE){
-  data %>% 
-    filter(Series == fix_flex_indicator) %>%
-    filter(!Banks == "Total Banks") %>%
-    ggplot(aes(x = Value)) +
-    geom_density(fill = "yellow", alpha = 0.5) +
-    scale_x_log10(labels = scales::label_log()) +
-    theme_minimal() +
-    theme(legend.position = "none") +
-    ggtitle("Total density plot") +
-    labs(
-      title = "Overall density",
-      x = glue("{xlabel}"),
-      y = "Density") +
-    scale_color_viridis_d()
-    } else {
-    data %>% 
-    filter(Series == fix_flex_indicator) %>%
-    filter(!Banks == "Total Banks") %>% 
-    ggplot(aes(x = Value)) +
-    geom_density(fill = "yellow", alpha = 0.5) +
-    scale_x_log10(labels = scales::label_log()) +
-    facet_wrap(~lubridate::year(Date), scale = "free", ncol = 2) +
-    theme_minimal() +
-    theme(legend.position = "none") +
-    labs(
-      title = "Overall density",
-      x = glue("{xlabel}"),
-      y = "Density") +
-      scale_color_viridis_d()
-    }
-  gg_two <- 
-    if(year_version == FALSE){
-      data %>% 
-        filter(Series == fix_flex_indicator) %>%
-        filter(!Banks == "Total Banks") %>%
-        ggplot(aes(x = Value, color = Banks)) +
-        geom_density() +
-        scale_x_log10(labels = scales::label_log()) +
-        theme_minimal() +
-        theme(legend.position = "none") +
-        ggtitle("Bank level density") +
-        labs(
-          # title = glue("Density of {title_tag} mortgage lending shares (2008-2023)"),
-          x = glue("{xlabel}"),
-          y = "Density") +
-        scale_color_viridis_d()
-    } else {
-      data %>% 
-        filter(Series == fix_flex_indicator) %>%
-        filter(!Banks == "Total Banks") %>% 
-        ggplot(aes(x = Value, color = Banks)) +
-        geom_density() +
-        scale_x_log10(labels = scales::label_log()) +
-        facet_wrap(~lubridate::year(Date), scale = "free", ncol = 2) +
-        theme_minimal() +
-        theme(legend.position = "none") +
-        ggtitle("Bank level density") +
-        labs(
-          # title = glue("Density of {title_tag} mortgage lending shares (2008-2023)"),
-          x = glue("{xlabel}"),
-          y = "Density") +
-        scale_color_viridis_d()
-    }
-  
- patchwork <-  gg_one + gg_two 
- patchwork +
-   plot_annotation(tag_levels = "A", 
-                   title = glue("Density of {title_tag} mortgage lending shares (2008-2023)")
-                   )
 }
 
 # Import -------------------------------------------------------------
