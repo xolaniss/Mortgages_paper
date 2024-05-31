@@ -107,7 +107,7 @@ housing_density_gg <-
     data = housing_split_tbl,
     fix_flex_indicator = "Fixed_share",
     title_tag = "household",
-    xlabel = as.expression(quote(log_10(FRM_share)))
+    xlabel = "FRM share"
   ) 
 housing_density_gg
 
@@ -116,7 +116,8 @@ housing_density_year_gg <-
   data = housing_split_tbl,
   fix_flex_indicator = "Fixed_share",
   title_tag = "household",
-  year_version = TRUE
+  year_version = TRUE,
+  xlabel = "FRM share"
 )
 housing_density_year_gg
 
@@ -124,7 +125,8 @@ corporate_density_gg <-
   corporate_split_tbl %>% 
   density_gg(
     fix_flex_indicator = "Fixed_share",
-    title_tag = "corporate"
+    title_tag = "corporate",
+    xlabel = "FRM share"
   )
 corporate_density_gg
 
@@ -133,7 +135,8 @@ corporate_density_year_gg <-
     data = corporate_split_tbl,
     fix_flex_indicator = "Fixed_share",
     title_tag = "corporate",
-    year_version = TRUE
+    year_version = TRUE,
+    xlabel = "FRM share"
   )
 corporate_density_year_gg
 
