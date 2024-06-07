@@ -83,7 +83,7 @@ housing_fixed_hist_by_year_gg
 corporate_fixed_hist_gg <- 
   distribution_gg(
     data = corporate_split_tbl,
-    fix_flex_indicator = "Fixed_share",
+    fix_flex_indicator = "Flexible_share",
     year_version = FALSE,
     title_tag = "corporate"
   )
@@ -93,7 +93,7 @@ corporate_fixed_hist_gg
 corporate_fixed_hist_by_year_gg <- 
   distribution_gg(
     data = corporate_split_tbl,
-    fix_flex_indicator = "Fixed_share",
+    fix_flex_indicator = "Flexible_share",
     year_version = TRUE,
     title_tag = "corporate",
     ylabel = "Log(FRM share)"
@@ -105,7 +105,7 @@ corporate_fixed_hist_by_year_gg
 housing_density_gg <- 
   density_gg(
     data = housing_split_tbl,
-    fix_flex_indicator = "Fixed_share",
+    fix_flex_indicator = "Flexible_share",
     title_tag = "household",
     xlabel = "FRM share"
   ) 
@@ -114,7 +114,7 @@ housing_density_gg
 housing_density_year_gg <- 
   density_gg(
   data = housing_split_tbl,
-  fix_flex_indicator = "Fixed_share",
+  fix_flex_indicator = "Flexible_share",
   title_tag = "household",
   year_version = TRUE,
   xlabel = "FRM share"

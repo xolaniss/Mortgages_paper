@@ -66,11 +66,16 @@ missingness_tbl <-
 banks_to_keep_vec <- 
   missingness_tbl %>% 
   filter(recon > 0.49) %>% 
-  pull(Banks). # 8 banks at the end
+  pull(Banks) # 8 banks at the end
 
 mortgage_lending_filtered_tbl <- 
   mortgage_lending_tbl %>% 
-  filter(Banks %in% banks_to_keep_vec)
+  filter(Banks %in% banks_to_keep_vec) %>% 
+  # change na to zero
+  mutate(`Outstanding balance at month end R'000` = 
+           case_when(is.na(`Outstanding balance at month end R'000`) ~ 0, 
+                     TRUE ~ `Outstanding balance at month end R'000`)) 
+mortgage_lending_filtered_tbl %>% missingness()
 
 # Calculating bank level fixed vs. flexible % --------------------------------
 mortgage_split_tbl <- 
