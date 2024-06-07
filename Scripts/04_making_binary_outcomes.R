@@ -65,7 +65,7 @@ binary_plot <- function(data){
     geom_bar(fill = "black") +
     labs(
       title = "Fixed share binary distribution",
-      x = "Fixed share binary",
+      x = "",
       y = "Frequency"
     ) +
     theme_minimal() +
