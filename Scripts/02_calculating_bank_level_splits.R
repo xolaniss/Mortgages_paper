@@ -65,8 +65,8 @@ missingness_tbl <-
 # Keeping banks with more than 50% recon -------------------------
 banks_to_keep_vec <- 
   missingness_tbl %>% 
-  filter(recon > 0.49) %>% 
-  pull(Banks) # 8 banks at the end
+  filter(recon > 0.50) %>% 
+  pull(Banks) #  banks at the end. Athens is not included in the BA900s 
 
 mortgage_lending_filtered_tbl <- 
   mortgage_lending_tbl %>% 

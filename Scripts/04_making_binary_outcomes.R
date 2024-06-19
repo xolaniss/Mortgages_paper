@@ -53,7 +53,7 @@ corporate_split_tbl <- mortgage_split$corporate_mortgage_split_tbl %>% pivot_fun
 ## Household binaries --------------------------------------------------------
 housing_split_fixed_binary_tbl <- 
   housing_split_tbl %>% 
-  binary(threshold = 20, varname = "Fixed_share_binary", variable = "Fixed_share")
+  binary(threshold = 10, varname = "Fixed_share_binary", variable = "Fixed_share")
   
     
 housing_split_fixed_binary_tbl %>% 
