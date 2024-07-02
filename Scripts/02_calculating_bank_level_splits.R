@@ -101,7 +101,8 @@ artifacts_bank_level_shares <- list (
   mortgage_lending_filtered_tbl = mortgage_lending_filtered_tbl,
   mortgage_split_tbl = mortgage_split_tbl,
   household_mortgage_split_tbl = household_mortgage_split_tbl,
-  corporate_mortgage_split_tbl = corporate_mortgage_split_tbl
+  corporate_mortgage_split_tbl = corporate_mortgage_split_tbl,
+  missingness_tbl = missingness_tbl
 )
 
 write_rds(artifacts_bank_level_shares, 

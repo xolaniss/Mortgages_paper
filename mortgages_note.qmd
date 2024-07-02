@@ -1,8 +1,23 @@
 ---
 format:
-  docx:
-    reference-doc: new_template_no_numbering.docx
-  pdf: default
+  pdf:
+    tbl-cap-location: top
+    dpi: 500
+    fig-pos: "H"
+    number-sections: true
+    cite-method: natbib
+    keep-tex: true
+    include-before-body: title.tex
+    include-in-header: 
+      - text: |
+          \usepackage{lscape}
+          \newcommand{\blandscape}{\begin{landscape}}
+          \newcommand{\elandscape}{\end{landscape}}
+          \usepackage{rotating}
+          \newcommand{\bsideways}{\begin{sidewaystable}[htbp]}
+          \newcommand{\esideways}{\end{sidewaystable}}
+      - file: preamble.tex 
+pdf-engine: lualatex
 monofont: "DejaVu Sans Mono"
 mainfont: "Times New Roman"
 execute: 
@@ -12,10 +27,10 @@ editor: source
 bibliography: references.bib
 biblio-style: apalike
 natbiboptions: round
-link-citations: false
-linkcolor: blue!000!black
-urlcolor: blue!000!black
-citecolor: blue!000!black
+link-citations: true
+linkcolor: blue!100!black
+urlcolor: blue!100!black
+citecolor: blue!100!black
 linestretch: 1.5
 indent: TRUE
 ---
@@ -58,7 +73,7 @@ library(stargazer)
 
 ```{r}
 #| label: func
-source(here("Functions","flextable_word.R" ))
+source(here("Functions","flextable_pdf.R" ))
 source(here("Functions","modelsummary_pdf.R" ))
 source(here("Functions","borderlines.R" ))
 
@@ -71,12 +86,9 @@ set_flextable_defaults(font.size = 7,
 ```
 
 # Introduction
-Mortgage loans are considered biggest expenditure for most households. This suggests that mortgages play a key role in the transmission of monetary policy. This is especially true in systems where ARMs (adjustable-rate mortgage) are more dominant compared to FRMs (fixed rate mortgages). ARMs are more sensitive to interest rate changes thus any increase in mortgage payments decreases household disposable income. Thus, an increase in the repo rate can lead to an increase in mortgage payments for borrowers who hold ARMs. Moreover, the allocation of interest-rate risk between the banking sector and the real sector differs across countries, with direct consequences for financial stability. Therefore, investigating the determinants of the prevalent type (ARM vs FRM) of mortgage in South Africa over time is crucial.
 
+# Literature Review
 
-# Exploring ARMs versus FRMs
-
-## Background
 A fixed rate mortgage can be referred to as a mortgage where the borrower is guaranteed a fixed rate over the duration of the mortgage. On the other hand, the adjustable-rate mortgage has an interest rate that fluctuates over time based on the existing market rate. 
 
 Literature suggests that demand and supply factors drive the choice between ARMs and FRMs. On the demand side borrowers financial condition plays a significant role.  @baesel1980allocation support this statement with their analysis of the considerations borrowers make between fixed versus index-linked mortgages. They found that borrower’s choice of mortgage depends on current the relationship between future income and inflation. 
@@ -116,27 +128,17 @@ Through these channels the increase or decrease in the policy rate can impact mo
 
 
 ## Interest rate passthrough
+
 Some of the factors that affect homeowners average interest rate on fixed rate mortgages include refinancing, entry channel and exit channel. Refinancing of fixed-rate mortgages to mortgages with lower interest rates have contributed to a significant part of the decrease in homeowners’ average interest rate since the financial crisis. The entry channel comprises borrowers who raise new fixed-rate debt at the market rate. New lending occurs in connection with relocations, switching from other loan types and borrowers who for the first time enter the housing market. The exit channel comprises borrowers with existing fixed-rate mortgages who repay the debt by instalments or terminate their loans without refinancing. Terminations typically cover relocations, switching to other loan types and foreclosure auctions.
 
 
 # Experiences from the rest of the world
-In contrast to South Africa and many countries, in the United States 80% of mortgages have fixed rates. @botsch2023long link this to the long-lasting effects of the Great Depression. This points to personal experiences with interest rates having an impact on interest rate expectations and mortgage choices. 
-
-@botsch2023long link this to the long-lasting effects of the Great Inflation. Personal experiences with interest rates affect interest rate expectations and mortgage choices. This is consistent with the idea that historically high inflation rates can predict the prevalence of fixed mortgages internationally.
-
-Despite the recent domination of fixed interest rates in the US, before the 1930s variable rates were the dominant type of mortgage. It was due to the Great depression that many borrowers defaulted on their payments. Following these policies to purchase long-term rate mortgages from banks so that lenders can shed the interest rate risk associated with holding these assets to maturity resulting in the dominance of FRM for the next 40 years.
-
+In contrast to South Africa and many countries, in the United States 80% of mortgages have fixed rates. @botsch2023long link this to the long-lasting effects of the Great Depression. This points to personal experiences with interest rates having an impact on interest rate expectations and mortgage choices. @botsch2023long link this to the long-lasting effects of the Great Inflation. Personal experiences with interest rates affect interest rate expectations and mortgage choices. This is consistent with the idea that historically high inflation rates can predict the prevalence of fixed mortgages internationally. Despite the recent domination of fixed interest rates in the US, before the 1930s variable rates were the dominant type of mortgage. It was due to the Great depression that many borrowers defaulted on their payments. Following these policies to purchase long-term rate mortgages from banks so that lenders can shed the interest rate risk associated with holding these assets to maturity resulting in the dominance of FRM for the next 40 years.
 
 ## Australia
-Australia’s mortgage market differs from the United States and other countries in the sense that the mortgage market transactions are not influenced by institutional structures such as Fannie Mac and Freddie Mac in the USA, government mortgage insurance as seen in the Netherlands and government security guarantees in Japan and Canada [@campbell2006household; @frame2005fussing].
+Australia’s mortgage market differs from the United States and other countries in the sense that the mortgage market transactions are not influenced by institutional structures such as Fannie Mac and Freddie Mac in the USA, government mortgage insurance as seen in the Netherlands and government security guarantees in Japan and Canada [@campbell2006household; @frame2005fussing]. @dungey2015mortgage state that securitization in Australia plays a minimal role in securing funds for major banks. They also mention that there is strong prudential regulation, but no public mortgage insurance scheme and that no government deposit guarantee existed prior to the impact of the financial crisis in 2008-2009. 
 
-@dungey2015mortgage state that securitization in Australia plays a minimal role in securing funds for major banks. They also mention that there is strong prudential regulation, but no public mortgage insurance scheme and that no government deposit guarantee existed prior to the impact of the financial crisis in 2008-2009. 
-
-Like South Africa, Australia’s mortgage is dominated by ARMs. But Australia’s market is characterized by a credit frontier loan written for terms up to 30 years, with the interest rate adjustable with the discretion of the bank.
-
-In Australia borrowers consider the initial interest rate and implicitly the loan amount they can access when choosing a mortgage product @dungey2018endogeneity. @dungey2018endogeneity show that the role of borrower characteristics is insignificant in determining mortgage choice directly and indirectly, through loan size and interest rate determination.
-
-In short, @dungey2018endogeneity finding reveal the potential effects of monetary policy transmission coupled with macro- and micro-prudential regulation. They show that borrowers' mortgage risk choices are mainly determined by mortgage prices and mortgage terms – such as loan size, market conditions and borrower characteristics.
+Like South Africa, Australia’s mortgage is dominated by ARMs. But Australia’s market is characterized by a credit frontier loan written for terms up to 30 years, with the interest rate adjustable with the discretion of the bank. In Australia borrowers consider the initial interest rate and implicitly the loan amount they can access when choosing a mortgage product @dungey2018endogeneity. @dungey2018endogeneity show that the role of borrower characteristics is insignificant in determining mortgage choice directly and indirectly, through loan size and interest rate determination. In short, @dungey2018endogeneity finding reveal the potential effects of monetary policy transmission coupled with macro- and micro-prudential regulation. They show that borrowers' mortgage risk choices are mainly determined by mortgage prices and mortgage terms – such as loan size, market conditions and borrower characteristics.
 
 
 ## Italy
@@ -153,15 +155,13 @@ Fixed rates in Denmark can be refinanced without the outstanding debt being sign
 On reason for this is that Danish fixed rate mortgages are special because borrowers can always redeem the loan at price 100 and thus refinance the loan without incurring a significant increase in the outstanding debt. Homeowners are thus protected from ending up with debt that is expensive to repurchase in connection with interest rate decreases. Providing a major reason why the Danish choose to finance their mortgages with fixed rates.
 
 ## Euro Area
-In the euro area, fixed rate mortgages (FRMs) are dominant in Belgium, France, Germany and the Netherlands. While adjustable-rate mortgages (ARMs) are prevailing in Austria, Greece, Italy, Portugal, and Spain. A study 12 countries claims that demand factors explain much of the total variation in the share of FRMs. A smaller portion, below 19% were associated with bank supply factors. The remaining 9% wasn't able to be explained.
+In the euro area, fixed rate mortgages (FRMs) are dominant in Belgium, France, Germany and the Netherlands. While adjustable-rate mortgages (ARMs) are prevailing in Austria, Greece, Italy, Portugal, and Spain. A study 12 countries claims that demand factors explain much of the total variation in the share of FRMs. A smaller portion, below 19% were associated with bank supply factors. The remaining 9% wasn't able to be explained. In the 12 countries studied the demand side of the ARMs was found to be positively influenced by the following factors. Firstly, a historically high inflation volatility, and secondly a relatively high degree of economic and financial literacy. Thirdly, the absence of regulations to facilitate the use of such loans as collateral for bank funding instruments, such as covered bonds and MBS, and lastly a marked negative correlation between the unemployment rate and short-term interest rates.
 
-In the 12 countries studied the demand side of the ARMs was found to be positively influenced by the following factors. Firstly, a historically high inflation volatility, and secondly a relatively high degree of economic and financial literacy. Thirdly, the absence of regulations to facilitate the use of such loans as collateral for bank funding instruments, such as covered bonds and MBS, and lastly a marked negative correlation between the unemployment rate and short-term interest rates.
+When it comes to FRMs the @albertazzi2019fixed concludes that at least part of the heterogeneity in the share of fixed rate mortgages across economies seems to reflect an optimal allocation of interest rate risk, given the differences in their business cycles and the expectations that monetary policy will operate in a way that stabilizes disposable income after housing costs were considered. Additionally, the variation in the share of FRMs to total new mortgages differs across countries as well, with little variation over time in Germany and Portugal, but far more in Italy and Greece [@albertazzi2019fixed]. This suggest that there is monetary policy transmission heterogeneity across countries.
 
-When it comes to FRMs the @albertazzi2019fixed concludes that at least part of the heterogeneity in the share of fixed rate mortgages across economies seems to reflect an optimal allocation of interest rate risk, given the differences in their business cycles and the expectations that monetary policy will operate in a way that stabilizes disposable income after housing costs were considered.
+\newpage
 
-Additionally, the variation in the share of FRMs to total new mortgages differs across countries as well, with little variation over time in Germany and Portugal, but far more in Italy and Greece [@albertazzi2019fixed]. This suggest that there is monetary policy transmission heterogeneity across countries.
-
-
+\bsideways
 
 ```{r}
 #| label: tbl-summary
@@ -180,7 +180,7 @@ tibble(
     "There is little rate differential between ARM and FRM due to the low interest rate environment resulting in little incentive to take on an ARM (Kish, 2022)"
   )
 ) %>% 
-  flextable_word() %>% 
+  flextable_pdf() %>% 
   width(j = 2, width = 0.1) 
   
 
@@ -189,21 +189,18 @@ tibble(
 
 ```
 
-
-
-
+\esideways
+\newpage
 # The South African mortgage market
-Housing finance in South Africa is largely determined by two factors, which include cost of funding and the lending risk in the different markets [@kajimo2006role]. Factors such as country risk, interest rate, inflation rate and rental price are some of the major variables that influence the housing market [@habanabakize2022political].
-
-However, @kajimo2006role points out that low-income groups are held back because they cannot get access to formal finance for them to build or improve houses or supplement housing subsidies to get bigger houses [@kajimo2006role]. This is an unfortunate characteristic of the housing market in South Africa that differentiates it form other more advanced economies. Additionally, most of the low-income households in South Africa are dependent on the government for house subsidies.
+Housing finance in South Africa is largely determined by two factors, which include cost of funding and the lending risk in the different markets [@kajimo2006role]. Factors such as country risk, interest rate, inflation rate and rental price are some of the major variables that influence the housing market [@habanabakize2022political]. However, @kajimo2006role points out that low-income groups are held back because they cannot get access to formal finance for them to build or improve houses or supplement housing subsidies to get bigger houses [@kajimo2006role]. This is an unfortunate characteristic of the housing market in South Africa that differentiates it form other more advanced economies. Additionally, most of the low-income households in South Africa are dependent on the government for house subsidies.
 
 One of the causes from the supply side is the reluctance of banks Banks to operate in the low-income group housing market, and this unwillingness causes a shortage problem in the country [@kajimo2006role]. The result is that high and middle-income groups are provided for, the banks, especially the larger banks have little engagement with the low-income groups [@kajimo2006role]. The impact of inflation was found to be mostly insignificant on the proportion of mortgages advanced to low-, middle- and high-income households in rand value but was found to be significant and negative for the proportion of mortgages advanced to middle- income households in volume. This finding is particularly important to monetary policy transmission as the South African Reserve Bank must consider the impact that inflation has on the volume of mortgages rather than the rand value.
 
 With this analysis of the south African mortgage in mind, there is a clear separation between low-income and middle-to-higher income groups further complicating the analysis of the housing market. Additionally, there is limited data showing which income group prefers what type of mortgage placing a limitation on this study. Regardless there are certain observations we can make with the data we have. This is explored in the following section of this study. First, we will go through some of the characteristics of the mortgage markets in certain countries around the world to see if there are any similarities or differences that can help understand not only South Africa’s mortgage market but the housing market in general.
 
-## The prevalence of ARMs in South Africa
+# The prevalence of ARMs in South Africa
 
-@fig-harm and @fig-carm display the dominance of ARMs over FRMs in South Africa’s mortgage market. For household mortgages the share of total mortgages consistently been above 90% from 2008 to 2023. 
+@fig-harm and @fig-carm display the dominance of ARMs over FRMs in South Africa’s mortgage market. For household mortgages the share of total mortgages consistently been above 90% from 2008 to 2023. On the other hand, from 2008 to 2023, ARMs have been at least 80% on average for corporations. From 2008 to around late 2010 flexible mortgages were above 90%, this was followed by a decline from 2010 to 2013. One explanation for this could be the 2008/2009 financial crisis. This is consistent with findings from @kim2016borrower who state that during a down housing market borrowers tended to avoid ARMs due to an increased perceived risk. From 2013 onwards the rates remained stable around 80% until 2020 where there was an external shock in the form of Covid 19 global pandemic. 
 
 ```{r}
 #| label: fig-harm
@@ -216,11 +213,7 @@ With this analysis of the south African mortgage in mind, there is a clear separ
 ```
 
 
-
-On the other hand, from 2008 to 2023, ARMs have been at least 80% on average for corporations. From 2008 to around late 2010 flexible mortgages were above 90%, this was followed by a decline from 2010 to 2013. One explanation for this could be the 2008/2009 financial crisis. This is consistent with findings from @kim2016borrower who state that during a down housing market borrowers tended to avoid ARMs due to an increased perceived risk. From 2013 onwards the rates remained stable around 80% until 2020 where there was an external shock in the form of Covid 19 global pandemic. 
-
 Thereafter we see the rates go back to just above 80% of the share of mortgages. But what explains the portion of fixed rate mortgages? @damen2016effect state that this is due to households’ (typically high earning)  households preference to spend a fixed fraction of their income on housing. This assists households budget their largest expense (housing) allowing for them to spend the remainder on other expenses (food, cars etc).
-
 
 
 ```{r}
@@ -236,67 +229,107 @@ Thereafter we see the rates go back to just above 80% of the share of mortgages.
 There are two instances on the graph (2009 and late 2022) where the ARMs intersect with the FRMs. Lending rates, similarly, to deposit rates, follow the movements in the repo rate. During the COVID-19 pandemic, the weighted average lending rate has been reflecting a noticeable increase in the risk profile of borrowers following the national lockdown from March 2020, along with a visible difference between the rates for households and companies.
 
 
-# Potential Drivers
-## The repo is a driver of lending rates
-
-@nimmo2022monetary conducted a study of how changes in the repo rate (by the South African Reserve Bank) passes through to a range on household and corporate lending and deposit rates. They found that interest rate hikes are passed through mortgage interest rates more strongly than rate cuts in the long-run equilibrium. 
-
-This is depicted on Figure 3 where the household lending rate and the repo rate have a similar shape. When the repo rate dipped from 2009 to 2010 (due to the financial crisis) and again from 2020 to 2021 (due to covid) the household flexible rate followed the same pattern. However, the fixed rate had less of a pronounced dip both times. This is consistent with existing literature that states that monetary transmission is stronger in economies dominated by ARMs. 
-
-These findings suggest that flexible mortgage rates for households in South Africa are more sensitive to increases in the repo rate and that necessitates careful consideration by the central bank when implementing monetary policy.
-
-
-```{r}
-#| label: fig-repo-household
-#| fig-cap: "Household mortgage rate and the repo rate"
-#| fig-width: 10
-#| fig-height: 6
-
-# LOAD GRAPH 3
-
-```
-
-
-
-The margin (lending spread) between the lending rate to companies and the repo rate has increased much more than that for households. Flexible lending rates are more closely aligned with the repo rate than fixed rates due to the extended maturity of some agreements. Borrowing at flexible rates is also cheaper than at fixed rates, as the option of locking into fixed-rate agreements requires a premium. There is also a marked difference between rates that apply to instalment sales that are significantly higher than interest rates on mortgage loans, with the latter, on a flexible weighted average basis, priced in proximity of the prime lending rate [@meyer2022margins]. 
-
-The (changes) weighted average flexible interest rate on new loans is an early indicator of changes in lending conditions to households, in particular for instalment sale credit (mostly vehicle purchases), whereas new and existing flexible interest rates for mortgage advances have followed similar paths as banks priced on interest rate changes in similar magnitudes. However, on balance, more interest rate relief was provided on longer-term mortgage credit than on shorter-term instalment sale credit
-
-
-
-```{r}
-#| label = fig-repo-corp,
-#| fig.cap = "Corporate mortgage rates and the repo rate",
-#| fig.width = 10,
-#| fig.height = 6
-
-# LOAD GRAPH 4
-
-```
-
-
-## The influence of house prices on ARMs
-
-
-Literature suggests that house prices can significantly affect adjustable-rate mortgages. The idea is that as house prices rise households with ARM may experience increases in mortgage payments. Homeowners use this knowledge of current mortgage rates and house prices to evaluate whether they should do nothing, refinance their existing mortgage, or purchase a home with a new mortgage [@Batzer2024lockin].
-
-OECD claims that rising rates can reduce demand for housing through an expectations/risk premium channel (from change in policy interest rates to housing prices) due to the sensitivity of house prices to changes in interest rates. This in turn affects individual behaviour (for example, homeownership decisions, mortgage choices, and leverage) and hence the macroeconomy [@kuchler2023housing].
-
-
-## The effect of financial literacy in South Africa
-
-@fornero2011effect that more financially literate individuals are, i) the more likely they are to shop around and compare mortgages for better economic conditions (in contrast to the less financially literate, who tend to take on mortgages from the first financial intermediary they contact), ii) the more prepared they are to diversify risks by better connecting their risk exposure with different types of mortgage, and iii) the less likely they are to experience delays in repayments.
-
-According to @campbell2003household  the choice of the type of mortgage is, first of all, a problem of risk understanding, where exposure is conditional on market features as well as on individual characteristics (e.g., earning risk) that make a specific contract more or less suited to a household.
-
-In the case of south Africa a study was conducted that quizzed respondents about their awareness and comprehension of financial concepts such as compound interest and inflation. This study was aimed at examine the financial literature of south africans. They found that, majority the respondents were not knowledgeable on inflation. As it pertains to interet rates there seems to be a fair understanding on their impact apart from compound interest.
-respondents were quizzed about their awareness and comprehension of certain financial concepts (such as inflation and compound interest). The quiz was used to examine how South Africans understand the financial world and provides an assessment of individuals’ familiarity and proficiency of basic financial concepts.
-
-The result of the quiz shows that there is a lack of knowledge of how inflation works particularly its effects on purchasing power. These results can be used as an argument that the respondent's knowledge of the effects of inflation could impact their knowledge of how the SARB (South African Reserve Bank) uses the repo rate to combat inflation. Since it has been established that monetary policy intervention by central banks in the form of short-term interest rates can affect the variable mortgage rate and ultimately the purchasing power of households.
-
-However, majority of respondents were shown to have a good knowledge of interest rates except when it comes to compound interest. Regardless, it can be assumed the respondents understand that an increase in the interest rate impacts the amount they must pay back to loaners. This suggests that households may have sufficient knowledge to differentiate between high rates and low rates of interest and therefore can make an informed decision when choosing the rate of interest to pay on their loans.
-
+# Data and methodology
+# Results
 # Conclusion
 
 \newpage
-# References
+# References {.unnumbered}
+::: {#refs}
+:::
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\Alph{section}}
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\newpage
+
+# Appendix
+
+## Bank selection
+```{r}
+#| label: tbl-bank_selection
+#| tbl-cap: "Bank selection"
+#| cache: FALSE
+
+banks <- read_rds(here("Outputs", "BA930", "artifacts_bank_level_shares.rds"))
+banks$missingness_tbl %>% 
+  flextable_pdf()  %>% 
+  align(part = "all", align = "left") %>% 
+  autofit(add_w = .5)
+```
+
+## Distribution of household FRM mortgage shares
+```{r}
+#| label: fig-frm_density
+#| fig-cap: "Household FRM mortgage share density"
+#| fig-width: 8
+#| fig-height: 4
+#| cache: FALSE
+
+distribution <- read_rds(here("Outputs", "BA930", "artifacts_distributions.rds"))
+distribution$densities$housing_fixed_density_gg
+
+
+```
+
+```{r}
+#| label: fig-frm_density_year
+#| fig-cap: "Household FRM mortgage share density by year "
+#| fig-width: 8
+#| fig-height: 10
+#| cache: FALSE
+
+distribution <- read_rds(here("Outputs", "BA930", "artifacts_distributions.rds"))
+distribution$densities$housing_density_fixed_year_gg
+
+
+```
+
+
+## Distribution of household ARM mortgage shares
+```{r}
+#| label: fig-Arm_density
+#| fig-cap: "Household ARM mortgage share density"
+#| fig-width: 8
+#| fig-height: 4
+#| cache: FALSE
+
+distribution$densities$housing_flexbile_density_gg
+
+
+```
+
+```{r}
+#| label: fig-Arm_density_year
+#| fig-cap: "Household ARM mortgage share density by year "
+#| fig-width: 8
+#| fig-height: 10
+#| cache: FALSE
+
+distribution$densities$housing_density_flexible_year_gg
+
+
+```
+
+
+## Binary outcomes of household mortgage shares
+```{r}
+#| label: fig-binary
+#| fig-cap: "Binary outcomes of household mortgage shares"
+#| fig-width: 8
+#| fig-height: 4
+#| cache: FALSE
+
+binary <- read_rds(here("Outputs", "BA930", "artifacts_binary.rds"))
+binary$plots$housing_split_flexible_binary_gg + binary$plots$housing_split_fixed_binary_gg +
+  plot_annotation(tag_levels = 'A')
+
+
+
+```

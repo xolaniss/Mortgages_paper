@@ -102,24 +102,43 @@ corporate_fixed_hist_by_year_gg <-
 corporate_fixed_hist_by_year_gg
 
 # Density estimates -------------------------------------------------------
-housing_density_gg <- 
+housing_fixed_density_gg <- 
+  density_gg(
+    data = housing_split_tbl,
+    fix_flex_indicator = "Fixed_share",
+    title_tag = "household",
+    xlabel = "FRM share"
+  ) 
+housing_fixed_density_gg
+
+housing_flexbile_density_gg <- 
   density_gg(
     data = housing_split_tbl,
     fix_flex_indicator = "Flexible_share",
     title_tag = "household",
-    xlabel = "FRM share"
+    xlabel = "ARM share"
   ) 
-housing_density_gg
+housing_flexbile_density_gg
 
-housing_density_year_gg <- 
+housing_density_fixed_year_gg <- 
   density_gg(
   data = housing_split_tbl,
-  fix_flex_indicator = "Flexible_share",
+  fix_flex_indicator = "Fixed_share",
   title_tag = "household",
   year_version = TRUE,
   xlabel = "FRM share"
 )
-housing_density_year_gg
+housing_density_fixed_year_gg
+
+housing_density_flexible_year_gg <- 
+  density_gg(
+    data = housing_split_tbl,
+    fix_flex_indicator = "Flexible_share",
+    title_tag = "household",
+    year_version = TRUE,
+    xlabel = "FRM share"
+  )
+housing_density_flexible_year_gg
 
 corporate_density_gg <- 
   corporate_split_tbl %>% 
@@ -149,8 +168,10 @@ artifacts_distributions <- list (
     corporate_fixed_hist_by_year_gg = corporate_fixed_hist_by_year_gg
   ),
   densities = list(
-    housing_density_gg = housing_density_gg,
-    housing_density_year_gg = housing_density_year_gg,
+    housing_fixed_density_gg = housing_fixed_density_gg,
+    housing_flexbile_density_gg = housing_flexbile_density_gg,
+    housing_density_fixed_year_gg = housing_density_fixed_year_gg,
+    housing_density_flexible_year_gg = housing_density_flexible_year_gg,
     corporate_density_gg = corporate_density_gg,
     corporate_density_year_gg = corporate_density_year_gg
   )

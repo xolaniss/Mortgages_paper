@@ -63,7 +63,7 @@ housing_split_fixed_binary_tbl %>%
 housing_split_fixed_binary_gg <- 
   housing_split_fixed_binary_tbl %>%    
   binary_plot(type = "Fixed") +
-  ggtitle("Household fixed share binary distribution")
+  ggtitle("Household FRM share binary distribution")
   
 housing_split_fixed_binary_gg
 
@@ -101,7 +101,7 @@ housing_split_flexible_binary_tbl <-
 housing_split_flexible_binary_gg <- 
   housing_split_flexible_binary_tbl %>%    
   binary_plot(type = "Flexible") +
-  ggtitle("Household flexible share binary distribution")
+  ggtitle("Household ARM share binary distribution")
 
 housing_split_flexible_binary_gg
 
